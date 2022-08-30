@@ -1,0 +1,36 @@
+.button {
+    min-width: 160px;
+    padding: 10px 20px;
+    margin: 0 10px;
+
+    color: inherit;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+
+    background: #2C2C2C;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.25);
+    border: none;
+
+    text-transform: uppercase;
+    cursor: pointer;
+
+    transition: .2s ease-in;
+}
+
+.button:hover {
+    background-color: #D6D6D6;
+    color: #2C2C2C;
+}
+
+.button:active {
+    box-shadow: 0px 0px 20px rgba(142, 142, 142, 0.6);
+}
+
+.button:disabled {
+    background-color: #626262;
+    color: #2C2B64;
+    box-shadow: none;
+
+    cursor: inherit;
+}

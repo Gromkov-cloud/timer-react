@@ -1,0 +1,71 @@
+.timerAddContainer {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 500px;
+    margin: 60px auto 0;
+    padding: 30px;
+
+    background-color: var(--main-color);
+    box-shadow: var(--main-shadow);
+}
+
+.timerAddContainer label {
+    margin: 0 0 20px;
+
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.timerAddContainer input {
+    width: 100%;
+    margin: 0;
+    padding: 5px 10px;
+
+    background-color: var(--main-gray);
+    border: none;
+
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--font-light);
+
+    box-shadow: var(--input-shadow);
+    border: 2px solid transparent;
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition: ease-in .2s;
+}
+
+.timerAddInvalid {
+    border-color: rgba(176, 50, 50, 0.6) !important;
+}
+
+.timerAddBtn button {
+    width: 100%;
+    margin: 0;
+}
+
+.timerAddErr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    padding: 0 0 20px;
+
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.timerAddErr span {
+    margin: 0 10px 0;
+
+    font-size: 28px;
+    color: #b03232;
+}

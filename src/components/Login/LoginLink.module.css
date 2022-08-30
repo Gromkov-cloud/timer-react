@@ -1,0 +1,13 @@
+.logIn {
+    color: inherit;
+    text-decoration: underline transparent;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+
+    transition: ease-in .1s;
+}
+
+.logIn:hover {
+    text-decoration: underline;
+}

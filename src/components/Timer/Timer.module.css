@@ -1,0 +1,31 @@
+.timerBody {
+    max-width: 700px;
+    width: 100%;
+    margin: 60px auto;
+    padding: 30px;
+
+    background: #2C2B64;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.timerTitle {
+    display: block;
+
+    text-align: center;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 42px;
+}
+
+.timerClocks {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    margin: 60px 0;
+}
+
+.timerControls {
+    display: flex;
+    justify-content: space-between;
+}
