@@ -1,4 +1,4 @@
-export type ITimer = {
+export interface ITimer {
     title: string,
     currentTime: number,
     totalTime: number,

@@ -2,13 +2,20 @@ import {useState} from "react";
 import {ITimer} from "../appTypes/appTypes";
 
 export const useTimer = () => {
-    // @ts-ignore
-    const initialTimer = JSON.parse(localStorage.getItem("timers")) || []
-    const [timers, setTimers] = useState<Array<ITimer>>(initialTimer)
 
-    const findTimer = (id: number) => {
-        return timers.filter(timer => timer.timerId === id)
+    const getStorageItem = (storageItemName: string) => {
+        const itemData = localStorage.getItem(storageItemName)
+        if (itemData) {
+            return JSON.parse(itemData)
+        } else return itemData
     }
+    const setTimersGlobal = (modifiedTimers: ITimer[]) => {
+        setTimers(modifiedTimers)
+        localStorage.setItem("timers", JSON.stringify(modifiedTimers))
+    }
+
+    const initialTimers = getStorageItem("timers") || []
+    const [timers, setTimers] = useState<Array<ITimer>>(initialTimers)
 
     const addTimer = (title: string, time: number) => {
         const newTimers = [
@@ -22,38 +29,39 @@ export const useTimer = () => {
             },
             ...timers
         ]
-        setTimers(newTimers)
-        localStorage.setItem("timers", JSON.stringify(newTimers))
+        setTimersGlobal(newTimers)
     }
+
     const timerReset = (timerId: number) => {
-        timerPause(timerId)
-        const resetTimers = () => timers.map(timer => {
+        const modifiedTimers = () => timers.map(timer => {
             if (timer.timerId === timerId) {
                 timer.currentTime = 0
+                timer.isPaused = true
+                clearInterval(timer.timerInterval)
+                timer.timerInterval = null
                 return timer
             } else return timer
         })
-        setTimers(resetTimers())
-        localStorage.setItem("timers", JSON.stringify(timers))
+        setTimersGlobal(modifiedTimers())
     }
     const timerPause = (timerId: number) => {
-        const timerToPause = findTimer(timerId)
-        const newTimers = () => timers.map(timer => {
+        const modifiedTimers = () => timers.map(timer => {
             if (timer.timerId === timerId) {
                 timer.isPaused = true
+                clearInterval(timer.timerInterval)
+                timer.timerInterval = null
                 return timer
             } else return timer
         })
-        setTimers(newTimers())
-        localStorage.setItem("timers",JSON.stringify(newTimers()))
-        clearInterval(timerToPause[0].timerInterval)
+        setTimersGlobal(modifiedTimers())
     }
     const timerStart = (timerId: number) => {
-        const timerToStart = findTimer(timerId)
-        if (timerToStart[0].isPaused) {
-            timerToStart[0].isPaused = false
-            timerToStart[0].timerInterval = setInterval(() => {
-                setTimers(timers => timers.map(timer => {
+        const timerToStart = timers.filter(timer => timer.timerId === timerId)[0]
+        if (timerToStart.isPaused) {
+            timerToStart.isPaused = false
+            timerToStart.timerInterval = setInterval(() => {
+                const modifiedTimers = () => {
+                    return timers.map(timer => {
                         if (timer.timerId === timerId && timer.currentTime !== timer.totalTime) {
                             timer.currentTime += 1
                             if (timer.currentTime === timer.totalTime) {
@@ -62,8 +70,8 @@ export const useTimer = () => {
                             return timer
                         } else return timer
                     })
-                )
-                localStorage.setItem("timers", JSON.stringify(timers))
+                }
+                setTimersGlobal(modifiedTimers())
             }, 1000)
         }
     }
